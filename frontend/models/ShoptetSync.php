@@ -9,15 +9,20 @@ use yii\helpers\VarDumper;
 
 class ShoptetSync
 {
+    private $api;
+
+    public function __construct()
+    {
+        $this->api = new ShoptetApi();
+    }
+
     public function syncProducts()
     {
-        $api = new ShoptetApi();
-
-        $productList = $api->getProducts();
+        $productList = $this->api->getProducts();
 
         foreach ($productList['data']['products'] as $item) {
             $guid = $item['guid'];
-            $product = $api->getProductDetail($guid);
+            $product = $this->api->getProductDetail($guid);
 
             $model = Product::findOne(['guid' => $guid]) ?? new Product();
 
@@ -35,5 +40,17 @@ class ShoptetSync
             //VarDumper::dump($model->getErrors());
             $model->save();
         }
+    }
+
+    public function updateProduct($guid)
+    {
+        $params = [
+            'data' => [
+                'guid' => $guid,
+                'name' => 'Calm Balls boxers XXL',
+            ]
+        ];
+
+        $this->api->updateProductData($params);
     }
 }

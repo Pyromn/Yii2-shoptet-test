@@ -80,6 +80,9 @@ class SiteController extends Controller
         $sync = new ShoptetSync();
         $sync->syncProducts();
 
+        // update shoptet product data
+        //$sync->updateProduct('ST-CALMBALLS-BOXERS-XXL');
+
         return $this->render('index');
     }
 
