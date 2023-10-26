@@ -15,6 +15,7 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use frontend\models\ShoptetSync;
 
 /**
  * Site controller
@@ -75,6 +76,10 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        // insert and update products
+        $sync = new ShoptetSync();
+        $sync->syncProducts();
+
         return $this->render('index');
     }
 
