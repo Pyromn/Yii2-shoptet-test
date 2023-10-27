@@ -1,10 +1,23 @@
 <?php
 
 /** @var yii\web\View $this */
+/** @var array $products */
+
+use app\models\Product;
 
 $this->title = 'My Yii Application';
 ?>
 <div class="site-index">
+    <div>
+        <?php /** @var Product $product */
+        foreach ($products as $product): ?>
+            <div>
+                <h3><?= $product->name ?></h3>
+                <p><?= $product->shortDescription ?></p>
+            </div>
+        <?php endforeach; ?>
+    </div>
+
     <div class="p-5 mb-4 bg-transparent rounded-3">
         <div class="container-fluid py-5 text-center">
             <h1 class="display-4">Congratulations!</h1>

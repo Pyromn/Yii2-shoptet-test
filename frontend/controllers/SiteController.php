@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use app\models\Product;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
@@ -83,7 +84,7 @@ class SiteController extends Controller
         // update shoptet product data
         //$sync->updateProduct('ST-CALMBALLS-BOXERS-XXL');
 
-        return $this->render('index');
+        return $this->render('index', ['products' => Product::findAll(['adult' => 0])]);
     }
 
     /**
