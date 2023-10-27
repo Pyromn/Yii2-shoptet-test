@@ -51,6 +51,6 @@ class ShoptetSync
             ]
         ];
 
-        $this->api->updateProductData($params);
+        $this->api->updateProductData($guid, $params);
     }
 }
