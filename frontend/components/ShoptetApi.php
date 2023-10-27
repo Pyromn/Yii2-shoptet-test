@@ -11,7 +11,7 @@ class ShoptetApi
     const ESHOP = 'eshop';
     const PRODUCTS = 'products';
 
-    public function __construct()
+    public function getShopInfo()
     {
         return $this->call(self::ESHOP);
     }
