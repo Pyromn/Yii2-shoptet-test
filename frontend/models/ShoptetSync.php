@@ -3,6 +3,7 @@
 namespace frontend\models;
 
 use app\models\Product;
+use app\models\ProductVariant;
 use frontend\components\ShoptetApi;
 use yii\helpers\Json;
 use yii\helpers\VarDumper;
@@ -26,20 +27,17 @@ class ShoptetSync
 
             /*foreach ($product['data']['variants'] as $variant) {
                 $code = $variant['code'];
-
                 $productVariant = $this->api->getProductDetailByCode($code);
             }*/
 
             $model = Product::findOne(['guid' => $guid]) ?? new Product();
 
             foreach ($product['data'] as $key => $value) {
-                if (is_array($value)) {
-                    $value = Json::encode($value);
-                } elseif (is_bool($value)) {
-                    $value = (int) $value;
+                if ($key === 'variants') {
+                    $this->saveProductVariants($guid, $value);
                 }
 
-                $model->setAttribute($key, $value);
+                $this->setAttributes($model, $key, $value);
             }
 
             $model->validate();
@@ -58,5 +56,32 @@ class ShoptetSync
         ];
 
         $this->api->updateProductDetailByCode($code, $params);
+    }
+
+    private function saveProductVariants(string $guid, array $variants): void
+    {
+        foreach ($variants as $variant) {
+            $modelVariant = ProductVariant::findOne(['code' => $variant['code']]) ?? new ProductVariant();
+            $modelVariant->guid = $guid;
+
+            foreach ($variant as $key => $value) {
+                $this->setAttributes($modelVariant, $key, $value);
+            }
+
+            $modelVariant->validate();
+            //VarDumper::dump($modelVariant->getErrors());
+            $modelVariant->save();
+        }
+    }
+
+    private function setAttributes($model, string $key, $value): void
+    {
+        if (is_array($value)) {
+            $value = Json::encode($value);
+        } elseif (is_bool($value)) {
+            $value = (int) $value;
+        }
+
+        $model->setAttribute($key, $value);
     }
 }
