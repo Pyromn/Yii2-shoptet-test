@@ -16,27 +16,27 @@ class ShoptetApi
         return $this->call(self::ESHOP);
     }
 
-    public function getProducts()
+    public function getProducts(): array
     {
         return $this->call(self::PRODUCTS);
     }
 
-    public function getProductDetail(string $guid, array $params = [])
+    public function getProductDetail(string $guid, array $params = []): array
     {
         return $this->call(self::PRODUCTS . '/' . $guid, $params);
     }
 
-    public function getProductDetailByCode(string $code, array $params = [])
+    public function getProductDetailByCode(string $code, array $params = []): array
     {
         return $this->call(self::PRODUCTS . '/code/' . $code, $params);
     }
 
-    public function updateProductDetailByCode(string $code, array $params)
+    public function updateProductDetailByCode(string $code, array $params): array
     {
         return $this->call(self::PRODUCTS . '/code/' . $code, $params, 'PATCH');
     }
 
-    private function call(string $action, array $params = [], string $method = 'GET')
+    private function call(string $action, array $params = [], string $method = 'GET'): array
     {
         $curl = Yii::$app->params['url'] . $action;
 

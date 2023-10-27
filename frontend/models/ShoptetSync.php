@@ -16,7 +16,7 @@ class ShoptetSync
         $this->api = new ShoptetApi();
     }
 
-    public function syncProducts()
+    public function syncProducts(): void
     {
         $productList = $this->api->getProducts();
 
@@ -48,11 +48,12 @@ class ShoptetSync
         }
     }
 
-    public function updateProduct(string $code)
+    public function updateProduct(string $code): void
     {
         $params = [
             'data' => [
-                'name' => 'Calm Balls boxers XXL',
+                // update short description
+                'shortDescription' => 'Všetko, čo potrebuješ, aby si mal vercajch v kľude ‑ pri športe, v kancli aj doma pri guleváloši. V tomto sete nájdeš starý dobrý Antistick a Antisweat, plus trenky s technológiou Balls Holder. Čože? Áno, proste gule podržia. Sú vybavené spešl priehradkou, kam si môžeš svoje gulaté „nádobíčko“ nasúkať a držať ho ďaleko od stehien, ku ktorým sa tak rado priliepa.',
             ]
         ];
 
