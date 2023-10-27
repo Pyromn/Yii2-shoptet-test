@@ -35,10 +35,14 @@ class ShoptetApi
     {
         $curl = Yii::$app->params['url'] . $action;
 
-        if ($method === 'GET') {
-            $data = http_build_query($params);
-        } else {
-            $data = Json::encode($params);
+        if (! empty($params)) {
+            if ($method === 'GET') {
+                $curl = $curl . '?' . http_build_query($params);
+            } elseif ($method === 'POST') {
+                $params = http_build_query($params);
+            } else {
+                $params = Json::encode($params);
+            }
         }
 
         $options = [
@@ -48,7 +52,7 @@ class ShoptetApi
                     "Content-Type: application/vnd.shoptet.v1.0",
                     "Shoptet-Private-API-Token: " . Yii::$app->params['token'],
                 ],
-                'content' => $data,
+                'content' => $params,
             ]
         ];
 

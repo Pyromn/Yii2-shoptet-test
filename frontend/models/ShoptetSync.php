@@ -22,7 +22,7 @@ class ShoptetSync
 
         foreach ($productList['data']['products'] as $item) {
             $guid = $item['guid'];
-            $product = $this->api->getProductDetail($guid);
+            $product = $this->api->getProductDetail($guid/*, ['include' => 'variants']*/);
 
             $model = Product::findOne(['guid' => $guid]) ?? new Product();
 
@@ -42,7 +42,7 @@ class ShoptetSync
         }
     }
 
-    public function updateProduct($guid)
+    public function updateProduct(string $guid)
     {
         $params = [
             'data' => [
