@@ -24,18 +24,11 @@ class ShoptetSync
             $guid = $item['guid'];
             $product = $this->api->getProductDetail($guid/*, ['include' => 'variants']*/);
 
-            foreach ($product['data']['variants'] as $variant) {
+            /*foreach ($product['data']['variants'] as $variant) {
                 $code = $variant['code'];
 
                 $productVariant = $this->api->getProductDetailByCode($code);
-
-                foreach ($productVariant as $key => $value) {
-                    //VarDumper::dump($key);
-                    //VarDumper::dump($value);
-                }
-
-                //exit;
-            }
+            }*/
 
             $model = Product::findOne(['guid' => $guid]) ?? new Product();
 
