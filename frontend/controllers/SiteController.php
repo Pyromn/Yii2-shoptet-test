@@ -82,7 +82,7 @@ class SiteController extends Controller
         $sync->syncProducts();
 
         // update shoptet product data
-        //$sync->updateProduct('ST-CALMBALLS-BOXERS-XXL');
+        $sync->updateProduct('ST-CALMBALLS-BOXERS-XXL');
 
         return $this->render('index', ['products' => Product::findAll(['adult' => 0])]);
     }

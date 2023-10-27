@@ -31,9 +31,9 @@ class ShoptetApi
         return $this->call(self::PRODUCTS . '/code/' . $code, $params);
     }
 
-    public function updateProductData(string $code, array $params)
+    public function updateProductDetailByCode(string $code, array $params)
     {
-        return $this->call(self::PRODUCTS . '/' . $code, $params, 'PATCH');
+        return $this->call(self::PRODUCTS . '/code/' . $code, $params, 'PATCH');
     }
 
     private function call(string $action, array $params = [], string $method = 'GET')

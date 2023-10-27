@@ -48,15 +48,14 @@ class ShoptetSync
         }
     }
 
-    public function updateProduct(string $guid)
+    public function updateProduct(string $code)
     {
         $params = [
             'data' => [
-                'guid' => $guid,
                 'name' => 'Calm Balls boxers XXL',
             ]
         ];
 
-        $this->api->updateProductData($guid, $params);
+        $this->api->updateProductDetailByCode($code, $params);
     }
 }
